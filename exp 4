@@ -1,0 +1,36 @@
+ CREATE TABLE STUDENT (
+    RegNo INT PRIMARY KEY,
+    Name VARCHAR(30),
+    Gender CHAR(1),
+    DOB DATE,
+    MobileNo BIGINT,
+    City VARCHAR(20)
+);
+
+ INSERT INTO STUDENT (RegNo, Name, Gender, DOB, MobileNo, City) VALUES
+(101, 'Arjun', 'M', '2005-02-15', 9876543210, 'Chennai'),
+(102, 'Bala', 'M', '2004-11-22', 9876543211, 'Madurai'),
+(103, 'Divya', 'F', '2005-07-10', 9876543212, 'Chennai'),
+(104, 'Karthik', 'M', '2003-05-05', 9876543213, 'Trichy'),
+(105, 'Priya', 'F', '2004-03-30', 9876543214, 'Salem');
+
+ SELECT RegNo, Name, DOB
+FROM STUDENT;
+
+ SELECT * FROM STUDENT
+WHERE City = 'Chennai';
+
+ SELECT * FROM STUDENT
+WHERE Name LIKE 'D%';
+
+ SELECT * FROM STUDENT
+WHERE Name LIKE '%a';
+
+ SELECT * FROM STUDENT
+WHERE Name LIKE '_r%';
+
+ SELECT * FROM STUDENT
+WHERE DOB > '2004-01-01';
+
+ SELECT * FROM STUDENT
+WHERE Gender = 'F' AND City = 'Chennai';
