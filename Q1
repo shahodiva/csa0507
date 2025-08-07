@@ -1,0 +1,26 @@
+Q1.
+ CREATE TABLE STUDENT (
+    RegNo INT(3) PRIMARY KEY,
+    Name VARCHAR(15),
+    Gender ENUM('M', 'F'),
+    DOB DATE,
+    MobileNo BIGINT,
+    City VARCHAR(15)
+);
+INSERT INTO STUDENT (RegNo, Name, Gender, DOB, MobileNo, City)
+VALUES (101, 'Amit', 'M', '2004-08-15', 9876543210, 'Delhi');
+
+SELECT * FROM STUDENT;
+
+Q2.
+ CREATE TABLE FACULTY (
+    FacNo VARCHAR(4) PRIMARY KEY,
+    FacName VARCHAR(15),
+    Gender CHAR(1),
+    DOB DATE,
+    DOJ DATE,
+    MobileNo BIGINT
+);
+INSERT INTO FACULTY (FacNo, FacName, Gender, DOB, DOJ, MobileNo)
+VALUES ('F001', 'Neha Sharma', 'F', '1985-06-12', '2010-07-01', 9876543210);
+SELECT * FROM FACULTY ;
