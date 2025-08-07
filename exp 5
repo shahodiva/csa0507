@@ -1,0 +1,52 @@
+CREATE TABLE COURSE (
+    CourseNo VARCHAR(5) PRIMARY KEY,
+    CourseName VARCHAR(30),
+    Semester INT
+);
+
+CREATE TABLE STUDENT (
+    RegNo INT PRIMARY KEY,
+    Name VARCHAR(30)
+);
+
+CREATE TABLE ASSESSMENT (
+    RegNo INT,
+    CourseNo VARCHAR(5),
+    Score INT,
+    FOREIGN KEY (RegNo) REFERENCES STUDENT(RegNo),
+    FOREIGN KEY (CourseNo) REFERENCES COURSE(CourseNo)
+);
+
+INSERT INTO COURSE VALUES
+('C001', 'Mathematics', 5),
+('C002', 'Programming', 5),
+('C021', 'Statistics', 5),
+('C030', 'Physics', 4);
+
+INSERT INTO STUDENT VALUES
+(101, 'Arjun'),
+(102, 'Divya'),
+(103, 'Kiran'),
+(104, 'Nisha');
+
+INSERT INTO ASSESSMENT VALUES
+(101, 'C002', 70),
+(101, 'C021', 85),
+(102, 'C002', 65),
+(102, 'C021', 55),
+(103, 'C002', 50),
+(103, 'C021', 45),
+(104, 'C002', 90),
+(104, 'C021', 88),
+(101, 'C001', 76),
+(102, 'C030', 60);
+
+SELECT * FROM COURSE WHERE CourseName IN ('Statistics', 'Programming');
+SELECT DISTINCT CourseNo FROM ASSESSMENT WHERE Score BETWEEN 50 AND 80;
+SELECT AVG(Score) AS Avg_Mark FROM ASSESSMENT WHERE CourseNo = 'C002';
+SELECT MAX(Score) AS Max_Score, MIN(Score) AS Min_Score FROM ASSESSMENT WHERE CourseNo = 'C021';
+SELECT C.CourseName, MAX(A.Score) AS Max_Score, MIN(A.Score) AS Min_Score, AVG(A.Score) AS Avg_Score FROM ASSESSMENT A JOIN COURSE C ON A.CourseNo = C.CourseNo WHERE C.Semester = 5 GROUP BY C.CourseName;
+SELECT C.CourseName, AVG(A.Score) AS Avg_Score FROM ASSESSMENT A JOIN COURSE C ON A.CourseNo = C.CourseNo GROUP BY C.CourseName;
+SELECT SUM(Score) AS Total_Score FROM ASSESSMENT;
+SELECT C.CourseName, COUNT(DISTINCT A.RegNo) AS No_of_Students FROM ASSESSMENT A JOIN COURSE C ON A.CourseNo = C.CourseNo GROUP BY C.CourseName;
+SELECT S.Name, COUNT(DISTINCT A.CourseNo) AS No_of_Courses FROM ASSESSMENT A JOIN STUDENT S ON A.RegNo = S.RegNo GROUP BY S.Name;
