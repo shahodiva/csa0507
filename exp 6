@@ -1,0 +1,67 @@
+  CREATE TABLE STUDENT (
+    RegNo INT PRIMARY KEY,
+    Name VARCHAR(50),
+    DOB DATE,
+    Gender VARCHAR(10),
+    MobileNo VARCHAR(15)
+);
+
+CREATE TABLE FACULTY (
+    FacultyID INT PRIMARY KEY,
+    Name VARCHAR(30),
+    DOB DATE
+);
+
+CREATE TABLE COURSE (
+    CourseNo VARCHAR(10) PRIMARY KEY,
+    CourseName VARCHAR(50),
+    Semester INT
+);
+
+CREATE TABLE ASSESSMENT (
+    RegNo INT,
+    CourseNo VARCHAR(10),
+    Mark INT,
+    FOREIGN KEY (RegNo) REFERENCES STUDENT(RegNo),
+    FOREIGN KEY (CourseNo) REFERENCES COURSE(CourseNo)
+);
+
+ INSERT INTO STUDENT VALUES 
+(101, 'Alice', '2002-05-10', 'Female', '9876543211'),
+(102, 'Bob', '2001-08-15', 'Male', '9876543212'),
+(103, 'Charlie', '2002-01-22', 'Male', '9876543213'),
+(104, 'Diana', '2003-03-30', 'Female', '9876543214');
+
+ INSERT INTO FACULTY VALUES 
+(1, 'Dr. Ravi', '1975-04-10'),
+(2, 'Dr. Meena', '1980-08-21'),
+(3, 'Mr. Kumar', '1985-03-15'),
+(4, 'Ms. Priya', '1990-12-05');
+
+ INSERT INTO COURSE VALUES 
+('C001', 'Statistics', 5),
+('C002', 'Programming', 5),
+('C003', 'Data Structures', 5);
+
+ INSERT INTO ASSESSMENT VALUES 
+(101, 'C001', 75),
+(101, 'C002', 85),
+(102, 'C001', 65),
+(102, 'C003', 90),
+(103, 'C002', 70),
+(104, 'C003', 80);
+
+ SELECT C.CourseName, COUNT(DISTINCT A.RegNo) AS No_of_Students
+FROM ASSESSMENT A
+JOIN COURSE C ON A.CourseNo = C.CourseNo
+GROUP BY C.CourseName;
+
+SELECT S.Name, COUNT(DISTINCT A.CourseNo) AS No_of_Courses
+FROM ASSESSMENT A
+JOIN STUDENT S ON A.RegNo = S.RegNo
+GROUP BY S.Name;
+
+-- ORDER BY
+SELECT Name, Gender, MobileNo FROM STUDENT ORDER BY RegNo ASC;
+
+SELECT * FROM FACULTY ORDER BY DOB ASC;
