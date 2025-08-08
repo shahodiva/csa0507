@@ -1,0 +1,77 @@
+-- CREATE TABLES
+CREATE TABLE STUDENT (
+    RegNo INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Gender VARCHAR(10),
+    MobileNo VARCHAR(15)
+);
+
+CREATE TABLE COURSE (
+    CourseNo VARCHAR(10) PRIMARY KEY,
+    CourseName VARCHAR(50),
+    Semester INT,
+    Description VARCHAR(100)
+);
+
+CREATE TABLE ASSESSMENT (
+    RegNo INT,
+    CourseNo VARCHAR(10),
+    Mark INT,
+    FOREIGN KEY (RegNo) REFERENCES STUDENT(RegNo),
+    FOREIGN KEY (CourseNo) REFERENCES COURSE(CourseNo)
+);
+
+CREATE TABLE FACULTY (
+    FacultyID INT PRIMARY KEY,
+    FacultyName VARCHAR(50),
+    DOB DATE,
+    JoinDate DATE
+);
+
+-- INSERT DATA
+INSERT INTO STUDENT VALUES 
+(101, 'Alice', 'Female', '9876543210'),
+(102, 'Bob', 'Male', '8765432109'),
+(103, 'Charlie', 'Male', '7654321098'),
+(104, 'Diana', 'Female', '6543210987');
+
+INSERT INTO COURSE VALUES 
+('C001', 'Statistics', 5, 'Statistics Course'),
+('C002', 'Programming', 5, 'Programming Course'),
+('C003', 'Mathematics', 5, 'Mathematics Course'),
+('C004', 'Physics', 4, 'Physics Course');
+
+INSERT INTO ASSESSMENT VALUES 
+(101, 'C001', 75),
+(101, 'C002', 85),
+(102, 'C001', 95),
+(102, 'C002', 60),
+(103, 'C002', 90),
+(103, 'C001', 88),
+(104, 'C003', 88),
+(104, 'C004', 78);
+
+INSERT INTO FACULTY VALUES 
+(1, 'Dr. Smith', '1975-02-10', '2023-01-10'),
+(2, 'Dr. Jones', '1965-03-15', '2024-06-15'),
+(3, 'Dr. Ray', '1980-08-20', '2025-08-01');
+
+-- GROUP BY - HAVING
+SELECT C.Description, COUNT(*) AS StudentCount
+FROM COURSE C
+JOIN ASSESSMENT A ON C.CourseNo = A.CourseNo
+GROUP BY C.CourseNo;
+
+SELECT S.Name, COUNT(*) AS CourseCount
+FROM STUDENT S
+JOIN ASSESSMENT A ON S.RegNo = A.RegNo
+GROUP BY S.RegNo;
+
+-- ORDER BY
+SELECT Name, Gender, MobileNo
+FROM STUDENT
+ORDER BY RegNo ASC;
+
+SELECT FacultyName, DOB
+FROM FACULTY
+ORDER BY DOB ASC;
