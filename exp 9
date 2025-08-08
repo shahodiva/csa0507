@@ -1,0 +1,26 @@
+-- Create the STUDENT table
+CREATE TABLE STUDENT (
+    regno INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    dob DATE,
+    gender VARCHAR(10),
+    mobile_no VARCHAR(15)
+);
+
+-- Insert sample data
+INSERT INTO STUDENT (name, dob, gender, mobile_no) VALUES
+('Arun', '2002-01-12', 'Male', '9876543210'),
+('Divya', '2002-03-10', 'Female', '9876543211'),
+('Ravi', '2002-04-05', 'Male', '9876543212'),
+('Priya', '2002-07-09', 'Female', '9876543213'),
+('Kumar', '2002-10-15', 'Male', '9876543214');
+
+-- Create a view
+CREATE VIEW std_view AS
+SELECT regno, name, dob FROM STUDENT;
+
+-- Create index on regno
+CREATE INDEX regno_index ON STUDENT(regno);
+
+-- Show indexes (for verification)
+SHOW INDEX FROM STUDENT;
